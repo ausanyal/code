@@ -11,6 +11,7 @@ void CountAllSequences(string n, int &curr_count, string full_string) {
   if (!n.size()) {
     ++curr_count;
     cout << full_string << "\n";
+    all_strings.push_back(full_string);
     return;
   }
 
@@ -37,5 +38,7 @@ int main() {
   string s;
   CountAllSequences(n, curr_count, s);
   cout << "curr count " << curr_count << "\n";
+  for (auto& s : all_strings) cout << s << " ";
+  cout << "\n";
   return 0;
 }
