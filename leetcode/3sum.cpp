@@ -65,7 +65,7 @@ class Solution {
             ts(nums, x, cs, 0, res);
             return res;
         }
-        vector<vector<int>> threeSum(vector<int>& nums) {
+        vector<vector<int>> threeSum3(vector<int>& nums) {
             vector<vector<int>> l;
             if (nums.size() < 3) return l;
             sort(nums.begin(), nums.end());
@@ -89,6 +89,60 @@ class Solution {
             }
             return l;
         }
+
+        vector<vector<int>> threeSum(vector<int>& nums) {
+          vector<vector<int>> res;
+          if (nums.size() < 3) return res+;
+          sort(nums.begin(), nums.end());
+          int b = 0, e = nums.size()-1;
+          while(b <= e-2) {
+            cout << "b " << b << " e " << e << "\n";
+            int x = nums[b] + nums[e];
+            cout << "x: " << x << "\n";
+            if (x < 0) {
+              int i = e - 1;
+              cout << "b " << b << " i " << i << " e " << e << "\n";
+              while (i > b) {
+                int r = nums[b] + nums[i] + nums[e];
+                cout << "r " << r << "\n";
+                if (r == 0) {
+                  // Add the result.
+                  cout << "Adding 1 \n";
+                  res.push_back({nums[b], nums[i], nums[e]});
+                  while((b < e-2) && (nums[b] == nums[b+1])) b++;
+                  b++;
+                  break;
+                } else if (r < 0) {
+                  b++;
+                  break;
+                } else {
+                  i--;
+                }
+              }
+            } else {
+              int i = b + 1;
+              cout << "b " << b << " i " << i << " e " << e << "\n";
+              while (i < e) {
+                int r = nums[b] + nums[i] + nums[e];
+                cout << "r " << r << "\n";
+                if (r == 0) {
+                  // Add the result.
+                  cout << "Adding 2 \n";
+                  res.push_back({nums[b], nums[i], nums[e]});
+                  while((b < e-2) && (nums[e-1] == nums[e])) e--;
+                  e--;
+                  break;
+                } else if (r > 0) {
+                  e--;
+                  break;
+                } else {
+                  i++;
+                }
+              }
+            }
+          }
+          return res;
+        }
 };
 
 int main()
@@ -97,6 +151,7 @@ int main()
     vector<int> nums = {-1, 0, 1, 2, -1, -4};
     vector<vector<int>> res;
     res = s.threeSum(nums);
+    cout << "Result \n";
     for (int i = 0; i < res.size(); i++) {
         vector<int> x = res[i];
         for (int j = 0; j < x.size(); j++) {

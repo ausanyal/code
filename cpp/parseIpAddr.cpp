@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -28,8 +29,26 @@ string parseIp(string ip) {
   return "";
 }
 
+unsigned int parseIp2(string ip) {
+  unsigned int ret_ip;
+  string oct;
+  for (int i = 0; i < ip.size(); ++i) {
+    char c = ip[i];
+    cout << "i: " << i << " c " << c << "\n";
+    if (c == '.' || i == ip.size()-1) {
+      if (i == ip.size()-1) oct+=c;
+      ret_ip = ret_ip << 8 | stoi(oct);
+      oct.clear();
+    } else {
+      oct += c;
+    }
+  }
+  return ret_ip;
+}
+
 int main()
 {
-  cout << parseIp("255.255.255.255");
+  //cout << parseIp("255.255.255.255");
+  cout << hex << parseIp2("1.2.3.4") << "\n";
   return 0;
 }

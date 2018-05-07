@@ -38,6 +38,28 @@ Rectangle duplicate(const Rectangle& param)
 	return res;
 }
 
+class A {
+  A() : a(10){}
+  private:
+  int a;
+  int get_a() {
+    return a;
+  }
+  int get_ab(int b) {
+    return a + b;
+  }
+  friend class B;
+};
+
+class B {
+  public:
+  B() {}
+  int get_b() {
+    A a;
+    return a.get_ab(20);
+  }
+};
+
 int main()
 {
 	Rectangle a(5, 5);
@@ -51,6 +73,10 @@ int main()
 	b.convert(s);
 	
 	cout << "b: " << b.area() << endl;	
+
+  cout << "===============\n";
+	B b2;
+	cout << b2.get_b() << "\n";
 
 	return 0;
 }
